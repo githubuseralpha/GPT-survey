@@ -3,8 +3,11 @@ from langchain_openai import OpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 
+from templates import survey_template, QUESTION_PREFIX_LENGTH
+
 dotenv.load_dotenv()
 DEFAULT_MODEL = "gpt-3.5-turbo-instruct"
+
 
 def get_gpt(
     model: str = DEFAULT_MODEL,
@@ -19,22 +22,36 @@ def get_gpt(
     )
     return llm
 
+
 def completion(
     llm: OpenAI,
-    prompt: str,
+    prompt: dict[str, str],
     template: str,
 ) -> str:
     chain = LLMChain(llm=llm, prompt=template)
     return chain.invoke(prompt)
 
+
+def generate_questions(
+    llm: OpenAI, category: str, subcategories: str, number_of_questions: int
+) -> str:
+    prompt = {
+        "category": category,
+        "subcategories": subcategories,
+        "number_of_questions": number_of_questions,
+    }
+    template = PromptTemplate(
+        template=survey_template,
+        input_variables=["category", "subcategories", "number_of_questions"],
+    )
+    return completion(llm, prompt, template)
+
+
+def process_questions(answer: str) -> list[str]:
+    return [question[QUESTION_PREFIX_LENGTH:] for question in answer["text"].split("\n")]
+
+
 if __name__ == "__main__":
-    prompt = "Why do you like The Matrix?"
-    template = """
-    Human: What's your favorite movie?
-    AI: I like The Matrix.
-    Human: {question}
-    AI: 
-    """
-    template = PromptTemplate(template=template, input_variables=["question"])
     llm = get_gpt()
-    print(completion(llm, prompt, template))
+    answer = generate_questions(llm, "food", "restaurants, cooking", 3)
+    print(process_questions(answer))
