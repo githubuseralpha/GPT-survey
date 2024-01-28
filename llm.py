@@ -11,8 +11,8 @@ DEFAULT_MODEL = "gpt-3.5-turbo-instruct"
 
 def get_gpt(
     model: str = DEFAULT_MODEL,
-    temperature: float = 0.6,
-    top_p: float = 0.9,
+    temperature: float = 0.7,
+    top_p: float = 1,
 ) -> str:
     llm = OpenAI(
         model=model,
@@ -52,6 +52,8 @@ def process_questions(text: str) -> list[str]:
 
 
 def generate_analysis(llm: OpenAI, questions: list[str], answers: list[str]) -> str:
+    print(questions)
+    print(answers)
     survey = ""
     for i in range(len(questions)):
         survey += f"{questions[i]}: {answers[i]}\n"

@@ -2,7 +2,7 @@ import json
 
 from flask import Flask, redirect, render_template, request, url_for, session
 
-from llm import generate_questions, process_questions, get_gpt
+from llm import generate_questions, process_questions, get_gpt, generate_analysis
 
 
 class Category:
@@ -69,10 +69,19 @@ def subcategories(cat_id):
 def survey():
     if request.method == "POST":
         data = request.form
+        questions = session["questions"]
+        answers = list(data.values())
+        session["analysis"] = generate_analysis(get_gpt(), questions, answers)
         return redirect(url_for("analysis", survey=data))
     elif request.method == "GET":
         questions = session["questions"]
-        return render_template("survey.html", questions=questions)
+        return render_template("survey.html", questions=enumerate(questions))
+
+
+@app.route("/analysis", methods=["GET"])
+def analysis():
+    analysis = session["analysis"]
+    return render_template("analysis.html", analysis=analysis)
 
 
 if __name__ == "__main__":

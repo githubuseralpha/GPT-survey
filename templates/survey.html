@@ -5,10 +5,11 @@
 {% block content %}
   <div class="container">
     <form method="post">
-        {% for question in questions %}
+        {% for i, question in questions %}
             <p>{{question}}</p>
-            <input type="text" id={{question}} name={{question}} value={{question}}>
+            <input type="text" id={{i}} name={{i}} required maxlength="250"><br>
         {% endfor %}
+        <br><br>
         <input type="submit" value="Submit">
     </form>
   </div>
