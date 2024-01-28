@@ -5,9 +5,12 @@
 {% block content %}
   <div class="container">
     <h1>Subcategories</h1>
-    <ul>
+    <form method="post">
       {% for subcategory in subcategories %}
-        <li>{{ subcategory }}</li>
+        <input type="checkbox" id={{subcategory}} name={{subcategory}} value={{subcategory}}>
+        <label for={{subcategory}}> {{subcategory}} </label><br>
       {% endfor %}
+      <input type="submit" value="Submit">
+    </form>
   </div>
 {% endblock %}
