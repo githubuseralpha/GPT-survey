@@ -4,11 +4,14 @@
 
 {% block content %}
   <div class="container">
-    <div class="row">
-      <div class="col">
-        <h1>Home</h1>
-        <p class="lead">Welcome to our homepage!</p>
-      </div>
-    </div>
+    <form method="post">
+      <select name="categories" id="category-select">
+        <option value="">--Please choose an option--</option>
+        {% for category in categories %}
+          <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+      </select>
+      <input type="submit" value="Submit">
+    </form>
   </div>
 {% endblock %}

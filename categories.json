@@ -1,0 +1,60 @@
+[
+    {
+        "name": "popculture",
+        "subcategories": [
+            "movies",
+            "music",
+            "tv",
+            "radio",
+            "celebrities",
+            "comics",
+            "books"
+        ]
+    },
+    {
+        "name": "sports",
+        "subcategories": [
+            "football",
+            "basketball",
+            "baseball",
+            "hockey",
+            "soccer",
+            "tennis",
+            "golf",
+            "olympics",
+            "boxing",
+            "wrestling",
+            "mma",
+            "racing"
+        ]
+    },
+    {
+        "name": "lifestyle",
+        "subcategories": [
+            "food",
+            "health",
+            "fitness",
+            "fashion",
+            "beauty",
+            "travel",
+            "home",
+            "garden",
+            "family",
+            "pets",
+            "weddings",
+            "style",
+            "tattoos",
+            "religion",
+            "culture",
+            "holidays",
+            "outdoors",
+            "humor",
+            "diy",
+            "crafts",
+            "photography",
+            "art",
+            "design",
+            "literature"  
+        ]
+    }
+]
