@@ -1,34 +1,14 @@
-import json
-
 from flask import Flask, redirect, render_template, request, url_for, session
 
 from llm import generate_questions, process_questions, get_gpt, generate_analysis
-
-
-class Category:
-    def __init__(self, id, name, subcategories):
-        self.name = name
-        self.subcategories = subcategories
-        self.id = id
-
-
-class CategoryManager:
-    def __init__(self):
-        self.categories = []
-
-    def load_categories(self, json_file):
-        with open(json_file) as f:
-            categories = json.load(f)
-        for i, category in enumerate(categories):
-            self.categories.append(
-                Category(i, category["name"], category["subcategories"])
-            )
+from categories import CategoryManager
 
 
 app = Flask(__name__)
 app.secret_key = "BAD_SECRET_KEY"
 categories = CategoryManager()
 categories.load_categories("categories.json")
+llm = get_gpt()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -54,10 +34,10 @@ def subcategories(cat_id):
         category_name = categories.categories[int(cat_id)].name
 
         questions = generate_questions(
-            get_gpt(), category_name, subcategories_str, num_questions
+            llm, category_name, subcategories_str, num_questions
         )
         questions = process_questions(questions)
-        session['questions'] = questions
+        session["questions"] = questions
         return redirect(url_for("survey"))
     elif request.method == "GET":
         category = categories.categories[int(cat_id)]
@@ -71,7 +51,7 @@ def survey():
         data = request.form
         questions = session["questions"]
         answers = list(data.values())
-        session["analysis"] = generate_analysis(get_gpt(), questions, answers)
+        session["analysis"] = generate_analysis(llm, questions, answers)
         return redirect(url_for("analysis", survey=data))
     elif request.method == "GET":
         questions = session["questions"]
