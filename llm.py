@@ -48,9 +48,7 @@ def generate_questions(
 
 
 def process_questions(text: str) -> list[str]:
-    return [
-        question[QUESTION_PREFIX_LENGTH:] for question in text.split("\n")
-    ]
+    return [question[QUESTION_PREFIX_LENGTH:] for question in text.split("\n")]
 
 
 def generate_analysis(llm: OpenAI, questions: list[str], answers: list[str]) -> str:
@@ -72,7 +70,6 @@ if __name__ == "__main__":
     llm = get_gpt()
     questions = ["What is your favorite movie?", "What is your favorite book?"]
     answers = ["The Godfather", "The Lord of the Rings"]
-    
+
     analysis = generate_analysis(llm, questions, answers)
     print(analysis)
-        
