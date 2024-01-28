@@ -1,11 +1,15 @@
+import os
+
+import dotenv
 from flask import Flask, redirect, render_template, request, url_for, session
 
 from llm import generate_questions, process_questions, get_gpt, generate_analysis
 from categories import CategoryManager
 
+dotenv.load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = "BAD_SECRET_KEY"
+app.secret_key = os.getenv("APP_SECRET_KEY")
 categories = CategoryManager()
 categories.load_categories("categories.json")
 llm = get_gpt()

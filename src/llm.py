@@ -6,6 +6,7 @@ from langchain.prompts import PromptTemplate
 from templates import ANALYSIS_TEMPLATE, SURVEY_TEMPLATE, QUESTION_PREFIX_LENGTH
 
 dotenv.load_dotenv()
+
 DEFAULT_MODEL = "gpt-3.5-turbo-instruct"
 
 
@@ -66,12 +67,3 @@ def generate_analysis(llm: OpenAI, questions: list[str], answers: list[str]) -> 
         input_variables=["survey"],
     )
     return completion(llm, prompt, template)["text"]
-
-
-if __name__ == "__main__":
-    llm = get_gpt()
-    questions = ["What is your favorite movie?", "What is your favorite book?"]
-    answers = ["The Godfather", "The Lord of the Rings"]
-
-    analysis = generate_analysis(llm, questions, answers)
-    print(analysis)
