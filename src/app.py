@@ -61,7 +61,17 @@ def subcategories(cat_id: int):
         NUM_QUESTION_FIELD_NAME = "number_of_questions"
         data = request.form
 
-        subcategories = [val for val in data.values() if val != NUM_QUESTION_FIELD_NAME]
+        subcategories = [val for key, val in data.items() if key != NUM_QUESTION_FIELD_NAME]
+
+        if len(subcategories) == 0:
+            category = categories.categories[int(cat_id)]
+            subcategories = category.subcategories
+            return render_template(
+                "subcategories.html",
+                subcategories=subcategories,
+                error="Please select at least one subcategory",
+            )
+        
         subcategories_str = ", ".join(subcategories)
         num_questions = int(data[NUM_QUESTION_FIELD_NAME])
         category_name = categories.categories[int(cat_id)].name
