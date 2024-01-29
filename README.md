@@ -22,7 +22,7 @@ or
 
     python3 src/app.py
 
-Depending on OS.
+Depending on OS. By default the application will start on localhost:5000.
 
 # Overview
 
