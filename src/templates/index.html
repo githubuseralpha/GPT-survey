@@ -3,15 +3,19 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-  <div class="container">
+  <div class="form-container mx-auto mt-5 p-5">
     <form method="post">
-      <select name="category" id="category-select" required>
-        <option value="">--Please choose an option--</option>
-        {% for category in categories %}
-          <option value="{{ category.id }}">{{ category.name }}</option>
-        {% endfor %}
-      </select>
-      <input type="submit" value="Submit">
+        <div class="mb-4 justify-content-center">
+          <select name="category" id="category-select" class="form-select p-2" required>
+            <option value="">--Please choose an option--</option>
+            {% for category in categories %}
+              <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mt-4 justify-content-center d-flex">
+          <input type="submit" class="btn btn-lg btn-primary" value="Submit">
+        </div>
     </form>
   </div>
 {% endblock %}

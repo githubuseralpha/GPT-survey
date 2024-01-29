@@ -3,16 +3,24 @@
 {% block title %}Subcategories{% endblock %}
 
 {% block content %}
-  <div class="container">
-    <h1>Subcategories</h1>
+  <div class="form-container mx-auto mt-5 p-5">
+    <h2 class="text-center mb-4">Subcategories</h2>
     <form method="post">
-      {% for subcategory in subcategories %}
-        <input type="checkbox" id={{subcategory}} name={{subcategory}} value={{subcategory}}>
-        <label for={{subcategory}}> {{subcategory}} </label><br>
-      {% endfor %}
-      <label for="number">Number of questions</label><br>
-      <input type="number" id="number" name="number_of_questions" min="1" max="10"><br><br>
-      <input type="submit" value="Submit">
+      <div class="row">
+        {% for subcategory in subcategories %}
+          <div class="col-md-4 form-check">
+            <input class="form-check-input" type="checkbox" id="{{ subcategory }}" name="{{ subcategory }}" value="{{ subcategory }}">
+            <label class="form-check-label" for="{{ subcategory }}">{{ subcategory }}</label>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="mt-3">
+        <label for="number" class="mb-2">Number of questions</label>
+        <input type="number" class="form-control" id="number" name="number_of_questions" min="1" max="10">
+      </div>
+      <div class="mt-4 justify-content-center d-flex">
+        <input type="submit" class="btn btn-lg btn-primary" value="Submit">
+      </div>
     </form>
   </div>
 {% endblock %}
