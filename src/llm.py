@@ -3,7 +3,13 @@ from langchain_openai import OpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate, FewShotPromptTemplate
 
-from llm_templates import ANALYSIS_TEMPLATE, SURVEY_EXAMPLE_TEMPLATE, SURVEY_PREFIX, SURVEY_SUFFIX, SURVEY_EXAMPLES
+from llm_templates import (
+    ANALYSIS_TEMPLATE,
+    SURVEY_EXAMPLE_TEMPLATE,
+    SURVEY_PREFIX,
+    SURVEY_SUFFIX,
+    SURVEY_EXAMPLES,
+)
 
 dotenv.load_dotenv()
 
@@ -42,21 +48,26 @@ def generate_questions(
         "subcategories": subcategories,
         "number_of_questions": number_of_questions,
     }
-    
+
     example_prompt = PromptTemplate(
-        input_variables=["category", "subcategories", "number_of_questions", "questions"],
+        input_variables=[
+            "category",
+            "subcategories",
+            "number_of_questions",
+            "questions",
+        ],
         template=SURVEY_EXAMPLE_TEMPLATE,
     )
-    
+
     few_shot_prompt_template = FewShotPromptTemplate(
         examples=SURVEY_EXAMPLES,
         example_prompt=example_prompt,
         prefix=SURVEY_PREFIX,
         suffix=SURVEY_SUFFIX,
         input_variables=["category", "subcategories", "number_of_questions"],
-        example_separator="\n\n"
+        example_separator="\n\n",
     )
-    
+
     return completion(llm, prompt, few_shot_prompt_template)["text"]
 
 

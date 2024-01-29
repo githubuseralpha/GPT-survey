@@ -9,7 +9,7 @@ SURVEY_EXAMPLES = [
             "3. How have streaming services (like Netflix, Spotify, etc.) changed your consumption habits for movies and music?\n"
             "4. Do you think current movies and music are too focused on nostalgia and reviving past trends, or do they strike a good balance with original content? Please explain your viewpoint.\n"
             "5. In your opinion, which recent movie soundtrack has significantly enhanced the film's impact or success, and what made it stand out for you?\n"
-        )
+        ),
     },
     {
         "category": "health",
@@ -18,18 +18,16 @@ SURVEY_EXAMPLES = [
         "questions": (
             "1. How long before going to bed do you eat your last meal?\n"
             "2. On a scale of 1 to 10, how would you describe the frequency of your physical activity?\n"
-        )
-    }
+        ),
+    },
 ]
 
-SURVEY_EXAMPLE_TEMPLATE =  (
+SURVEY_EXAMPLE_TEMPLATE = (
     "Category: {category}; Subcategories: {subcategories}; Number of questions: {number_of_questions};\n\n"
     "Questions: {questions}"
 )
 
-SURVEY_PREFIX = (
-    "You are a computer program, that generates survey questions, based on given category, subcategories and number of quetions.\n\n"
-)
+SURVEY_PREFIX = "You are a computer program, that generates survey questions, based on given category, subcategories and number of quetions.\n\n"
 
 SURVEY_SUFFIX = (
     "Category: {category}; Subcategories: {subcategories}; Number of questions: {number_of_questions};\n\n"
