@@ -56,5 +56,59 @@
             "design",
             "literature"  
         ]
+    },
+    {
+        "name": "technology",
+        "subcategories": [
+            "computers",
+            "internet",
+            "software",
+            "hardware",
+            "gadgets",
+            "mobile",
+            "social media",
+            "video games",
+            "tech news",
+            "tech culture",
+            "tech business"
+        ]
+    },
+    {
+        "name": "health",
+        "subcategories": [
+            "fitness",
+            "nutrition",
+            "mental health",
+            "weight loss",
+            "health care",
+            "diseases",
+            "health insurance",
+            "health policy",
+            "health tech",
+            "health news"
+        ]
+    },
+    {
+        "name": "business",
+        "subcategories": [
+            "finance",
+            "economy",
+            "real estate",
+            "retail",
+            "small business",
+            "personal finance",
+            "wall street",
+            "economics",
+            "startups",
+            "venture capital",
+            "entrepreneurship",
+            "stocks",
+            "investing",
+            "business news",
+            "business culture",
+            "business travel",
+            "business tech",
+            "business policy"
+        ]
     }
 ]
