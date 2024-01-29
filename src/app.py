@@ -69,7 +69,6 @@ def subcategories(cat_id: int):
         text = generate_questions(
             survey_llm, category_name, subcategories_str, num_questions
         )
-        print(text)
         questions = multiple_process_questions(text, num_questions)
         session["questions"] = questions
         return redirect(url_for("survey"))
