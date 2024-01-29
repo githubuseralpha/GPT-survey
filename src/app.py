@@ -37,10 +37,11 @@ analysis_llm = get_gpt(
     max_tokens=int(config["gpt_analysis"]["max_new_tokens"]),
 )
 
+
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--debug", action="store_true")
-    return parser.parse_args()    
+    return parser.parse_args()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -65,7 +66,9 @@ def subcategories(cat_id: int):
         num_questions = int(data[NUM_QUESTION_FIELD_NAME])
         category_name = categories.categories[int(cat_id)].name
 
-        text = generate_questions(survey_llm, category_name, subcategories_str, num_questions)
+        text = generate_questions(
+            survey_llm, category_name, subcategories_str, num_questions
+        )
         print(text)
         questions = multiple_process_questions(text, num_questions)
         session["questions"] = questions

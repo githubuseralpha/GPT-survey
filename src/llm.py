@@ -57,7 +57,7 @@ def process_questions(text: str, number_of_questions: int) -> list[str]:
     ]
     assert len(questions) >= number_of_questions
 
-    questions = [question[question.index(".") + 1:] for question in questions]
+    questions = [question[question.index(".") + 1 :] for question in questions]
     questions = questions[:number_of_questions]
     return questions
 
