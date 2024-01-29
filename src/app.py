@@ -49,7 +49,7 @@ def category():
         return render_template("index.html", categories=categories_list)
 
 
-@app.route("/subcategories/<cat_id>", methods=["GET", "POST"])
+@app.route("/category/<cat_id>", methods=["GET", "POST"])
 def subcategories(cat_id: int):
     if request.method == "POST":
         NUM_QUESTION_FIELD_NAME = "number_of_questions"
