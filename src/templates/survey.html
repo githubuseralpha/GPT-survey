@@ -3,14 +3,16 @@
 {% block title %}Subcategories{% endblock %}
 
 {% block content %}
-  <div class="container">
+  <div class="form-container mx-auto mt-5 p-5">
+    <h2 class="text-center mb-4">Survey</h2>
     <form method="post">
         {% for i, question in questions %}
             <p>{{question}}</p>
-            <input type="text" id={{i}} name={{i}} required maxlength="250"><br>
+            <textarea  class="form-control mb-3" rows="3" type="text" id={{i}} name={{i}} required maxlength="250"></textarea>
         {% endfor %}
-        <br><br>
-        <input type="submit" value="Submit">
-    </form>
+        <div class="mt-4 justify-content-center d-flex">
+          <input type="submit" class="btn btn-lg btn-primary" value="Submit">
+        </div>
+      </form>
   </div>
 {% endblock %}
