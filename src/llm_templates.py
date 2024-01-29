@@ -24,7 +24,7 @@ SURVEY_EXAMPLES = [
 
 SURVEY_EXAMPLE_TEMPLATE = (
     "Category: {category}; Subcategories: {subcategories}; Number of questions: {number_of_questions};\n\n"
-    "Questions: {questions}"
+    "Questions:\n{questions}"
 )
 
 SURVEY_PREFIX = "You are a computer program, that generates survey questions, based on given category, subcategories and number of quetions.\n\n"
