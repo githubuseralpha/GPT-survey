@@ -75,8 +75,8 @@ def multiple_process_questions(
 
 def generate_analysis(llm: OpenAI, questions: list[str], answers: list[str]) -> str:
     survey = ""
-    for i in range(len(questions)):
-        survey += f"{questions[i]}: {answers[i]}\n"
+    for q, a in zip(questions, answers):
+        survey += f"{q}\n{a}\n\n"
 
     prompt = {
         "survey": survey,
