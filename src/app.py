@@ -37,10 +37,11 @@ def subcategories(cat_id: int):
         num_questions = int(data[NUM_QUESTION_FIELD_NAME])
         category_name = categories.categories[int(cat_id)].name
 
-        questions = generate_questions(
+        text = generate_questions(
             llm, category_name, subcategories_str, num_questions
         )
-        questions = multiple_process_questions(questions, num_questions)
+        print(text)
+        questions = multiple_process_questions(text, num_questions)
         session["questions"] = questions
         return redirect(url_for("survey"))
     elif request.method == "GET":
