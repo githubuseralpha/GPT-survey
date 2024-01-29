@@ -57,11 +57,16 @@ def category():
 
 @app.route("/category/<cat_id>", methods=["GET", "POST"])
 def subcategories(cat_id: int):
-    if request.method == "POST":
-        NUM_QUESTION_FIELD_NAME = "number_of_questions"
+    MIN_NUM_QUESTIONS = 1
+    MAX_NUM_QUESTIONS = 10
+    NUM_QUESTION_FIELD_NAME = "number_of_questions"
+    
+    if request.method == "POST":   
         data = request.form
 
-        subcategories = [val for key, val in data.items() if key != NUM_QUESTION_FIELD_NAME]
+        subcategories = [
+            val for key, val in data.items() if key != NUM_QUESTION_FIELD_NAME
+        ]
 
         if len(subcategories) == 0:
             category = categories.categories[int(cat_id)]
@@ -69,9 +74,11 @@ def subcategories(cat_id: int):
             return render_template(
                 "subcategories.html",
                 subcategories=subcategories,
+                min_questions=MIN_NUM_QUESTIONS,
+                max_questions=MAX_NUM_QUESTIONS,
                 error="Please select at least one subcategory",
             )
-        
+
         subcategories_str = ", ".join(subcategories)
         num_questions = int(data[NUM_QUESTION_FIELD_NAME])
         category_name = categories.categories[int(cat_id)].name
@@ -85,7 +92,12 @@ def subcategories(cat_id: int):
     elif request.method == "GET":
         category = categories.categories[int(cat_id)]
         subcategories = category.subcategories
-        return render_template("subcategories.html", subcategories=subcategories)
+        return render_template(
+            "subcategories.html",
+            subcategories=subcategories,
+            min_questions=MIN_NUM_QUESTIONS,
+            max_questions=MAX_NUM_QUESTIONS,
+        )
 
 
 @app.route("/survey", methods=["GET", "POST"])
