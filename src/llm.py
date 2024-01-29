@@ -14,12 +14,13 @@ def get_gpt(
     model: str = DEFAULT_MODEL,
     temperature: float = 0.5,
     top_p: float = 0.9,
+    max_tokens: int = 1024,
 ) -> str:
     llm = OpenAI(
         model=model,
         temperature=temperature,
         top_p=top_p,
-        max_tokens=512,
+        max_tokens=max_tokens,
     )
     return llm
 
@@ -55,13 +56,15 @@ def process_questions(text: str, number_of_questions: int) -> list[str]:
         if question.startswith(f"{i+1}.")
     ]
     assert len(questions) >= number_of_questions
-    
+
     questions = [question[QUESTION_PREFIX_LENGTH:] for question in questions]
     questions = questions[:number_of_questions]
     return questions
 
 
-def multiple_process_questions(text: str, number_of_questions: int, retries: int = 3) -> list[str]:
+def multiple_process_questions(
+    text: str, number_of_questions: int, retries: int = 3
+) -> list[str]:
     for _ in range(retries):
         try:
             return process_questions(text, number_of_questions)

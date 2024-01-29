@@ -1,18 +1,41 @@
 import os
+from configparser import ConfigParser
 
 import dotenv
 from flask import Flask, redirect, render_template, request, url_for, session
 
-from llm import generate_questions, get_gpt, generate_analysis, multiple_process_questions
+from llm import (
+    generate_questions,
+    get_gpt,
+    generate_analysis,
+    multiple_process_questions,
+)
 from categories import CategoryManager
 
 dotenv.load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.getenv("APP_SECRET_KEY")
+
+config = ConfigParser()
+config.read("config.ini")
+
 categories = CategoryManager()
 categories.load_categories("categories.json")
-llm = get_gpt()
+
+survey_llm = get_gpt(
+    model=config["gpt_survey"]["model_name"],
+    temperature=float(config["gpt_survey"]["temperature"]),
+    top_p=float(config["gpt_survey"]["top_p"]),
+    max_tokens=int(config["gpt_survey"]["max_new_tokens"]),
+)
+analysis_llm = get_gpt(
+    model=config["gpt_analysis"]["model_name"],
+    temperature=float(config["gpt_analysis"]["temperature"]),
+    top_p=float(config["gpt_analysis"]["top_p"]),
+    max_tokens=int(config["gpt_analysis"]["max_new_tokens"]),
+)
+    
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -37,9 +60,7 @@ def subcategories(cat_id: int):
         num_questions = int(data[NUM_QUESTION_FIELD_NAME])
         category_name = categories.categories[int(cat_id)].name
 
-        text = generate_questions(
-            llm, category_name, subcategories_str, num_questions
-        )
+        text = generate_questions(survey_llm, category_name, subcategories_str, num_questions)
         print(text)
         questions = multiple_process_questions(text, num_questions)
         session["questions"] = questions
@@ -56,7 +77,7 @@ def survey():
         data = request.form
         questions = session["questions"]
         answers = list(data.values())
-        session["analysis"] = generate_analysis(llm, questions, answers)
+        session["analysis"] = generate_analysis(analysis_llm, questions, answers)
         return redirect(url_for("analysis", survey=data))
     elif request.method == "GET":
         questions = session["questions"]
