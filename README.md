@@ -24,7 +24,7 @@ or
 
 Depending on OS. By default the application will start on localhost:5000.
 
-# Overview
+## Overview
 
 Here is overview of some decisions and solutions used in this projects:
 1. I am using different values of temperature and top_p for question generation and analysis. For question generation I have chosen small values for these parameters to make sure that GPT will follow the given pattern. For analysis I provided greater values to ensure creativity. Values for these parameters can be found and changed in config file.

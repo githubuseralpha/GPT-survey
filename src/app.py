@@ -60,8 +60,8 @@ def subcategories(cat_id: int):
     MIN_NUM_QUESTIONS = 1
     MAX_NUM_QUESTIONS = 10
     NUM_QUESTION_FIELD_NAME = "number_of_questions"
-    
-    if request.method == "POST":   
+
+    if request.method == "POST":
         data = request.form
 
         subcategories = [
