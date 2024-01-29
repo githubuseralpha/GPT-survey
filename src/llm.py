@@ -3,7 +3,7 @@ from langchain_openai import OpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 
-from templates import ANALYSIS_TEMPLATE, SURVEY_TEMPLATE
+from llm_templates import ANALYSIS_TEMPLATE, SURVEY_TEMPLATE
 
 dotenv.load_dotenv()
 
