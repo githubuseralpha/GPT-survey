@@ -27,7 +27,7 @@ def category():
 
 
 @app.route("/subcategories/<cat_id>", methods=["GET", "POST"])
-def subcategories(cat_id):
+def subcategories(cat_id: int):
     if request.method == "POST":
         NUM_QUESTION_FIELD_NAME = "number_of_questions"
         data = request.form

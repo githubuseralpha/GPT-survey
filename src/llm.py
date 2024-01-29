@@ -53,8 +53,6 @@ def process_questions(text: str) -> list[str]:
 
 
 def generate_analysis(llm: OpenAI, questions: list[str], answers: list[str]) -> str:
-    print(questions)
-    print(answers)
     survey = ""
     for i in range(len(questions)):
         survey += f"{questions[i]}: {answers[i]}\n"
