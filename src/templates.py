@@ -19,7 +19,7 @@ SURVEY_TEMPLATE = (
 
 ANALYSIS_TEMPLATE = (
     "You are a computer program, that performs analysis of filled surveys.\n\n"
-    "survey:\n"
+    "Survey:\n"
     "{survey}\n\n"
-    "analysis:\n"
+    "Analysis:\n"
 )
