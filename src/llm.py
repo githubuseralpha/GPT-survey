@@ -12,8 +12,8 @@ DEFAULT_MODEL = "gpt-3.5-turbo-instruct"
 
 def get_gpt(
     model: str = DEFAULT_MODEL,
-    temperature: float = 0.7,
-    top_p: float = 1,
+    temperature: float = 0.5,
+    top_p: float = 0.9,
 ) -> str:
     llm = OpenAI(
         model=model,
@@ -48,8 +48,26 @@ def generate_questions(
     return completion(llm, prompt, template)["text"]
 
 
-def process_questions(text: str) -> list[str]:
-    return [question[QUESTION_PREFIX_LENGTH:] for question in text.split("\n")]
+def process_questions(text: str, number_of_questions: int) -> list[str]:
+    questions = [
+        question
+        for i, question in enumerate(text.split("\n"))
+        if question.startswith(f"{i+1}.")
+    ]
+    assert len(questions) >= number_of_questions
+    
+    questions = [question[QUESTION_PREFIX_LENGTH:] for question in questions]
+    questions = questions[:number_of_questions]
+    return questions
+
+
+def multiple_process_questions(text: str, number_of_questions: int, retries: int = 3) -> list[str]:
+    for _ in range(retries):
+        try:
+            return process_questions(text, number_of_questions)
+        except AssertionError or IndexError:
+            pass
+    return None
 
 
 def generate_analysis(llm: OpenAI, questions: list[str], answers: list[str]) -> str:

@@ -3,7 +3,7 @@ import os
 import dotenv
 from flask import Flask, redirect, render_template, request, url_for, session
 
-from llm import generate_questions, process_questions, get_gpt, generate_analysis
+from llm import generate_questions, get_gpt, generate_analysis, multiple_process_questions
 from categories import CategoryManager
 
 dotenv.load_dotenv()
@@ -40,7 +40,7 @@ def subcategories(cat_id: int):
         questions = generate_questions(
             llm, category_name, subcategories_str, num_questions
         )
-        questions = process_questions(questions)
+        questions = multiple_process_questions(questions, num_questions)
         session["questions"] = questions
         return redirect(url_for("survey"))
     elif request.method == "GET":
