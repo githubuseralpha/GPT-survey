@@ -51,7 +51,7 @@ def category():
         return redirect(url_for("subcategories", cat_id=category_id))
     elif request.method == "GET":
         categories_list = categories.categories
-        return render_template("index.html", categories=categories_list)
+        return render_template("categories.html", categories=categories_list)
 
 
 @app.route("/category/<cat_id>", methods=["GET", "POST"])
@@ -83,7 +83,7 @@ def survey():
         questions = session["questions"]
         answers = list(data.values())
         session["analysis"] = generate_analysis(analysis_llm, questions, answers)
-        return redirect(url_for("analysis", survey=data))
+        return redirect(url_for("analysis"))
     elif request.method == "GET":
         questions = session["questions"]
         return render_template("survey.html", questions=enumerate(questions))
