@@ -1,5 +1,3 @@
-QUESTION_PREFIX_LENGTH = 3
-
 SURVEY_TEMPLATE = (
     "You are a computer program, that generates survey questions, based on given category, subcategories and number of quetions.\n\n"
     "Category: popculture; Subcategories: movies, music; Number of questions: 5;\n\n"

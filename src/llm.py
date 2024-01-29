@@ -3,7 +3,7 @@ from langchain_openai import OpenAI
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 
-from templates import ANALYSIS_TEMPLATE, SURVEY_TEMPLATE, QUESTION_PREFIX_LENGTH
+from templates import ANALYSIS_TEMPLATE, SURVEY_TEMPLATE
 
 dotenv.load_dotenv()
 
@@ -57,7 +57,7 @@ def process_questions(text: str, number_of_questions: int) -> list[str]:
     ]
     assert len(questions) >= number_of_questions
 
-    questions = [question[QUESTION_PREFIX_LENGTH:] for question in questions]
+    questions = [question[question.index(".") + 1:] for question in questions]
     questions = questions[:number_of_questions]
     return questions
 
